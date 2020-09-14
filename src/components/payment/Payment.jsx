@@ -39,17 +39,22 @@ function Payment() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setProcessing(true);
+    const cardElement = elements.getElement(CardElement);
 
-    const payload = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: elements.getElement(CardElement)
-      }
-    }).then(({ paymentIntent }) => {
+    const payload = await stripe
+      .confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: cardElement,
+          billing_details: {
+            name: 'Jenny Rosen',
+          },
+        },
+    })
+    .then(({ paymentIntent }) => {
       //paymentIntent = payment confirmation
       setSucceeded(true);
       setError(null);
       setProcessing(false);
-
       history.replace('/orders')
     })
 
