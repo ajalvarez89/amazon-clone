@@ -7,6 +7,7 @@ import Home from './components/home/Home';
 import Checkout from './components/checkout/Checkout'
 import Payment from './components/payment/Payment'
 import Login from './components/login/Login';
+import Orders from './components/orders/Orders';
 import { auth } from "./firebase";
 import { useStateValue } from "./stateProvider";
 import { loadStripe } from "@stripe/stripe-js"
@@ -37,10 +38,13 @@ function App() {
   }, [])
 
   return (
-    //BEM
     <Router>
       <div className="App">
         <Switch>
+          <Route path='/orders'>
+            <Header />
+            <Orders/>
+          </Route>
           <Route path='/login'>
             <Login />
           </Route>
